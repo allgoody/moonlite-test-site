@@ -28,7 +28,7 @@
       "en"
     ],
     "default": "ru",
-    "prefixDefaultLocale": false
+    "prefixDefaultLocale": true
   },
   "editor": {
     "path": "/admin/"
