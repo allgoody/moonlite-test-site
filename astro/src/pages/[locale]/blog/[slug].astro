@@ -21,7 +21,7 @@ const { Content } = await render(entry);
 <Base title={entry.data.title} locale={locale!}>
   <section class="hero">
     <h1>{entry.data.title}</h1>
-    {entry.data.date && <p class="muted">{entry.data.date}</p>}
+    {entry.data.date && <p class="muted">{new Date(entry.data.date).toLocaleDateString(Astro.params.locale, { day: 'numeric', month: 'long', year: 'numeric' })}</p>}
   </section>
   <main>
     <article>

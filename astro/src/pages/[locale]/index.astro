@@ -20,7 +20,7 @@ const posts = await entries('blog', locale!);
     {posts.map((post) => (
       <article class="card">
         <h2><a href={`/${locale}/blog/${post.slug}/`}>{post.data.title}</a></h2>
-        {post.data.date && <p class="muted">{post.data.date}</p>}
+        {post.data.date && <p class="muted">{new Date(post.data.date).toLocaleDateString(Astro.params.locale, { day: 'numeric', month: 'long', year: 'numeric' })}</p>}
         <p>{post.data.description ?? ''}</p>
       </article>
     ))}
