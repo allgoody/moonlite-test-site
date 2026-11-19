@@ -1,0 +1,138 @@
+# yaml-language-server: $schema=../../admin-config.schema.json
+backend:
+  name: github
+  repo: allgoody/moonlite-test-site
+  branch: draft
+  # Online sign-in is not used by the launcher: the app serves the editor itself
+  # and signs in through its own device flow, so this stays a placeholder.
+  base_url: https://moonlite-auth.example
+
+site_url: https://moonlite-test-pages.pages.dev
+display_url: https://moonlite-test-pages.pages.dev
+
+i18n:
+  structure: multiple_folders
+  locales: [ru, uk, en]
+  default_locale: ru
+  # A new entry starts in the default language only; the others are created when
+  # the client fills them. Without this Sveltia writes empty UK and EN files,
+  # which then publish blank pages.
+  initial_locales: [ru]
+
+media_folder: astro/public/uploads
+public_folder: /uploads
+
+slug:
+  encoding: ascii
+  clean_accents: true
+
+media_libraries:
+  default:
+    config:
+      slugify_filename: true
+
+# `required: [ru]` is Sveltia's per-language form: required only in the default
+# language, so a new entry saves with just RU filled. Plain `required: true` on
+# a translated field blocks saving until every language is written (Spike A).
+# changes::validate_config enforces this; the bundled Decap JSON schema does not
+# know the per-language form and reports it as a type error.
+collections:
+  - name: blog
+    label: Blog
+    label_singular: Post
+    folder: astro/src/content/blog
+    create: true
+    i18n: true
+    slug: "{{fields.slug}}"
+    preview_path: "{{locale}}/blog/{{slug}}/"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+        i18n: true
+        required: [ru]
+      - name: slug
+        label: Address (Latin letters only)
+        widget: string
+        i18n: duplicate
+        pattern:
+          - "^[a-z0-9-]+$"
+          - Use lowercase Latin letters, digits and dashes
+      - name: date
+        label: Date
+        widget: datetime
+        i18n: duplicate
+        required: false
+      - name: draft
+        label: Draft
+        widget: boolean
+        default: false
+        i18n: duplicate
+      - name: description
+        label: Short description
+        widget: text
+        i18n: true
+        required: false
+      - name: cover
+        label: Cover image
+        widget: image
+        i18n: duplicate
+        required: false
+      - name: body
+        label: Text
+        widget: markdown
+        i18n: true
+        required: [ru]
+
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: astro/src/content/pages
+    create: true
+    i18n: true
+    slug: "{{fields.slug}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+        i18n: true
+        required: [ru]
+      - name: slug
+        label: Address (Latin letters only)
+        widget: string
+        i18n: duplicate
+        pattern:
+          - "^[a-z0-9-]+$"
+          - Use lowercase Latin letters, digits and dashes
+      - name: draft
+        label: Draft
+        widget: boolean
+        default: false
+        i18n: duplicate
+      - name: body
+        label: Text
+        widget: markdown
+        i18n: true
+        required: [ru]
+
+  - name: settings
+    label: Site settings
+    # The collection itself must be translated; file-level `i18n` is ignored.
+    i18n: true
+    files:
+      - name: site
+        label: Site details
+        # `{{locale}}` gives every language its own file.
+        file: astro/src/content/settings/{{locale}}/site.md
+        i18n: true
+        fields:
+          - name: title
+            label: Site name
+            widget: string
+            i18n: true
+            required: [ru]
+          - name: description
+            label: Description
+            widget: text
+            i18n: true
+            required: false

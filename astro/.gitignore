@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.astro/
+.env*
+.sveltia-tmp-*
+.DS_Store

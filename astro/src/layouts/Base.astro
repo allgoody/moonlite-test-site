@@ -1,0 +1,32 @@
+---
+import { LOCALES } from '../lib/i18n';
+import '../styles.css';
+
+interface Props {
+  title: string;
+  locale: string;
+}
+const { title, locale } = Astro.props;
+const path = Astro.url.pathname;
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title} · Пекарня «Колосок»</title>
+    <meta name="description" content="Небольшая пекарня: хлеб на закваске, выпечка и торты на заказ." />
+  </head>
+  <body>
+    <header>
+      <a href={`/${locale}/`}><strong>Пекарня «Колосок»</strong></a>
+      <nav>
+        <a href={`/${locale}/`}>Главная</a>
+        <a href={`/${locale}/about/`}>О нас</a>
+        <a href={`/${locale}/blog/`}>Блог</a>
+        {LOCALES.map((l) => <a href={path.replace(/^\/(ru|uk|en)/, `/${l}`)}>{l.toUpperCase()}</a>)}
+      </nav>
+    </header>
+    <slot />
+  </body>
+</html>

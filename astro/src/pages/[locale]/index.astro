@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { entries } from '../../lib/content';
+import { LOCALES } from '../../lib/i18n';
+
+export function getStaticPaths() {
+  return LOCALES.map((locale) => ({ params: { locale } }));
+}
+
+const { locale } = Astro.params;
+const posts = await entries('blog', locale!);
+---
+<Base title="Главная" locale={locale!}>
+  <section class="hero">
+    <h1>Свежий хлеб каждое утро</h1>
+    <p class="muted">Печём на закваске из муки местного помола.</p>
+  </section>
+  <main>
+    <h2>Новости пекарни</h2>
+    {posts.map((post) => (
+      <article class="card">
+        <h2><a href={`/${locale}/blog/${post.slug}/`}>{post.data.title}</a></h2>
+        {post.data.date && <p class="muted">{post.data.date}</p>}
+        <p>{post.data.description ?? ''}</p>
+      </article>
+    ))}
+    {posts.length === 0 && <p class="muted">Пока нет записей в этом языке.</p>}
+  </main>
+</Base>

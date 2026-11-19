@@ -1,0 +1,50 @@
+{
+  "$schema": "https://github.com/allgoody/moonLite/blob/main/app/schema/site.schema.json",
+  "version": 1,
+  "id": "moonlite-test-site",
+  "name": "moonLite test site",
+  "accent": "#d9822b",
+  "icon": null,
+  "branches": {
+    "draft": "draft",
+    "main": "main"
+  },
+  "node": "22",
+  "commands": {
+    "dev": "astro dev",
+    "build": "astro build"
+  },
+  "deploy": {
+    "tool": "wrangler",
+    "mode": "pages",
+    "project": "moonlite-test-pages",
+    "outDir": "dist",
+    "liveUrl": "https://moonlite-test-pages.pages.dev"
+  },
+  "i18n": {
+    "locales": [
+      "ru",
+      "uk",
+      "en"
+    ],
+    "default": "ru",
+    "prefixDefaultLocale": false
+  },
+  "editor": {
+    "path": "/admin/"
+  },
+  "previewRoutes": {
+    "blog": "/{locale}/blog/{slug}/",
+    "pages": "/{locale}/{slug}/",
+    "settings": null
+  },
+  "media": [
+    "src/assets/uploads",
+    "public/uploads"
+  ],
+  "contact": {
+    "developerEmail": "dev@example.com",
+    "telegram": "@moonlite_dev"
+  },
+  "root": "astro"
+}

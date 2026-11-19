@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { entries } from '../../lib/content';
+import { LOCALES } from '../../lib/i18n';
+import { render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const paths = [];
+  for (const locale of LOCALES) {
+    for (const entry of await entries('pages', locale)) {
+      paths.push({ params: { locale, slug: entry.slug }, props: { entry } });
+    }
+  }
+  return paths;
+}
+
+const { locale } = Astro.params;
+const { entry } = Astro.props as { entry: Awaited<ReturnType<typeof entries>>[number] };
+const { Content } = await render(entry);
+---
+<Base title={entry.data.title} locale={locale!}>
+  <main>
+    <h1>{entry.data.title}</h1>
+    <article><Content /></article>
+  </main>
+</Base>

@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sveltia CMS config (moonLite site fixture)",
+  "description": "The subset moonLite relies on. Points out the one place Sveltia differs from Decap: `required` may be a list of locales. Verified against @sveltia/cms 0.266.0: `Array.isArray(required) ? required.includes(locale) : !!required`.",
+  "type": "object",
+  "properties": {
+    "backend": { "type": "object" },
+    "i18n": {
+      "type": "object",
+      "properties": {
+        "structure": {
+          "enum": ["single_file", "multiple_files", "multiple_folders"]
+        },
+        "locales": { "type": "array", "items": { "type": "string" } },
+        "default_locale": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "media_folder": { "type": "string" },
+    "public_folder": { "type": "string" },
+    "media_libraries": { "type": "object" },
+    "slug": { "type": "object" },
+    "collections": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/collection" }
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "required": {
+      "description": "true/false, or the locales where the field is required.",
+      "type": ["boolean", "array"],
+      "items": { "type": "string" }
+    },
+    "i18n": {
+      "description": "true/false, `duplicate`, or an options object.",
+      "type": ["boolean", "string", "object"]
+    },
+    "field": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "widget": { "type": "string" },
+        "required": { "$ref": "#/definitions/required" },
+        "i18n": { "$ref": "#/definitions/i18n" },
+        "pattern": { "type": "array", "items": { "type": "string" } },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/field" }
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": true
+    },
+    "file": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "file": { "type": "string" },
+        "i18n": { "$ref": "#/definitions/i18n" },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/field" }
+        }
+      },
+      "required": ["name", "file"],
+      "additionalProperties": true
+    },
+    "collection": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "label": { "type": "string" },
+        "folder": { "type": "string" },
+        "files": { "type": "array", "items": { "$ref": "#/definitions/file" } },
+        "i18n": { "$ref": "#/definitions/i18n" },
+        "slug": { "type": "string" },
+        "fields": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/field" }
+        }
+      },
+      "required": ["name", "label"],
+      "additionalProperties": true
+    }
+  }
+}
