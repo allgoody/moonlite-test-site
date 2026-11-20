@@ -12,10 +12,10 @@ display_url: https://moonlite-test-pages.pages.dev
 
 i18n:
   structure: multiple_folders
-  locales: [ru, uk, en]
+  locales: [ru, en]
   default_locale: ru
   # A new entry starts in the default language only; the others are created when
-  # the client fills them. Without this Sveltia writes empty UK and EN files,
+  # the client fills them. Without this Sveltia writes empty EN files,
   # which then publish blank pages.
   initial_locales: [ru]
 

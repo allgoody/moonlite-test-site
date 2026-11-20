@@ -24,7 +24,7 @@ const path = Astro.url.pathname;
         <a href={`/${locale}/`}>Главная</a>
         <a href={`/${locale}/about/`}>О нас</a>
         <a href={`/${locale}/blog/`}>Блог</a>
-        {LOCALES.map((l) => <a href={path.replace(/^\/(ru|uk|en)/, `/${l}`)}>{l.toUpperCase()}</a>)}
+        {LOCALES.map((l) => <a href={path.replace(/^\/(ru|en)/, `/${l}`)}>{l.toUpperCase()}</a>)}
       </nav>
     </header>
     <slot />

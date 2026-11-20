@@ -1,4 +1,4 @@
-export const LOCALES = ['ru', 'uk', 'en'] as const;
+export const LOCALES = ['ru', 'en'] as const;
 export type Locale = (typeof LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = 'ru';
 
@@ -7,5 +7,5 @@ export function isLocale(value: string | undefined): value is Locale {
 }
 
 export function label(locale: Locale): string {
-  return { ru: 'RU', uk: 'UK', en: 'EN' }[locale];
+  return { ru: 'RU', en: 'EN' }[locale];
 }
