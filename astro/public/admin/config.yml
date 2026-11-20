@@ -38,8 +38,8 @@ media_libraries:
 # know the per-language form and reports it as a type error.
 collections:
   - name: blog
-    label: Blog
-    label_singular: Post
+    label: Блог
+    label_singular: Запись
     folder: astro/src/content/blog
     create: true
     i18n: true
@@ -47,92 +47,92 @@ collections:
     preview_path: "{{locale}}/blog/{{slug}}/"
     fields:
       - name: title
-        label: Title
+        label: Заголовок
         widget: string
         i18n: true
         required: [ru]
       - name: slug
-        label: Address (Latin letters only)
+        label: Адрес (только латиница)
         widget: string
         i18n: duplicate
         pattern:
           - "^[a-z0-9-]+$"
           - Use lowercase Latin letters, digits and dashes
       - name: date
-        label: Date
+        label: Дата
         widget: datetime
         i18n: duplicate
         required: false
       - name: draft
-        label: Draft
+        label: Черновик
         widget: boolean
         default: false
         i18n: duplicate
       - name: description
-        label: Short description
+        label: Краткое описание
         widget: text
         i18n: true
         required: false
       - name: cover
-        label: Cover image
+        label: Обложка
         widget: image
         i18n: duplicate
         required: false
       - name: body
-        label: Text
+        label: Текст
         widget: markdown
         i18n: true
         required: [ru]
 
   - name: pages
-    label: Pages
-    label_singular: Page
+    label: Страницы
+    label_singular: Страница
     folder: astro/src/content/pages
     create: true
     i18n: true
     slug: "{{fields.slug}}"
     fields:
       - name: title
-        label: Title
+        label: Заголовок
         widget: string
         i18n: true
         required: [ru]
       - name: slug
-        label: Address (Latin letters only)
+        label: Адрес (только латиница)
         widget: string
         i18n: duplicate
         pattern:
           - "^[a-z0-9-]+$"
           - Use lowercase Latin letters, digits and dashes
       - name: draft
-        label: Draft
+        label: Черновик
         widget: boolean
         default: false
         i18n: duplicate
       - name: body
-        label: Text
+        label: Текст
         widget: markdown
         i18n: true
         required: [ru]
 
   - name: settings
-    label: Site settings
+    label: Настройки сайта
     # The collection itself must be translated; file-level `i18n` is ignored.
     i18n: true
     files:
       - name: site
-        label: Site details
+        label: Данные сайта
         # `{{locale}}` gives every language its own file.
         file: astro/src/content/settings/{{locale}}/site.md
         i18n: true
         fields:
           - name: title
-            label: Site name
+            label: Название сайта
             widget: string
             i18n: true
             required: [ru]
           - name: description
-            label: Description
+            label: Описание
             widget: text
             i18n: true
             required: false
